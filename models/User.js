@@ -1,17 +1,25 @@
 const mongoose = require('mongoose');
-const userSchema = require('../app');
+// const userSchema = require('../app');
+const userDebugger = require('debug')('app:create');
 
-console.log(userSchema)
+//model Schema
+
+const userSchema = new mongoose.Schema({
+    name: String
+})
+
 
 
 const User = mongoose.model("User", userSchema)
 
 async function createUser(data){
+
     const newUser = new User({
-        name: data.name
+        name: data.toString()
     })
     const result = await newUser.save()
-    
+    // result()
 }
 
 exports.createUser = createUser;
+exports.User = User
