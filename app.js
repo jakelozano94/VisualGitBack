@@ -9,10 +9,15 @@ const Strategy = require('passport-github').Strategy
 const axios = require('axios');
 const { Octokit } = require('@octokit/core');
 const { createUser } = require('./models/User');
+const router = require('./routes/users');
+const cors = require('cors')
+
+//CORS setup
+app.use(cors())
 
 
 mongoose.connect('mongodb://localhost/visualgit')
-.then(() =>{
+    .then(() =>{
     mongoDebugger('Connected to MongoDB...')
     })
     .catch(() => {
@@ -20,23 +25,23 @@ mongoose.connect('mongodb://localhost/visualgit')
     })
     
     
-    var GitHubStrategy = require('passport-github').Strategy;
-    app.listen(3000)
-    app.get('/login', (req, res) =>{
-        res.redirect(`https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.CLIENT_ID}`)
-    })
+var GitHubStrategy = require('passport-github').Strategy;
+app.listen(3000)
+app.get('/login', (req, res) =>{
+    res.redirect(`https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.CLIENT_ID}`)
+})
     
-    app.get('/signin/callback', ({ query: { code } }, res) =>{
-        const body = {
-            client_id: process.env.CLIENT_ID,
-            client_secret: process.env.CLIENT_SECRET,
-            code
-        };
-        const options = {
-            headers: {accept: 'application/json'}
+app.get('/signin/callback', ({ query: { code } }, res) =>{
+    const body = {
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
+        code
     };
-    0
-    axios
+    const options = {
+        headers: {accept: 'application/json'}
+};
+    
+axios
     .post('https://github.com/login/oauth/access_token', body, options)
     .then((_res) =>((_res.data.access_token)))
     .then(async (token) => {
@@ -50,6 +55,10 @@ mongoose.connect('mongodb://localhost/visualgit')
         res.status(500).json({err: error.message})
     })
 });
+
+app.use('/users', router)
+
+
 
                   
             

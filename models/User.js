@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
 
 
 const User = mongoose.model("User", userSchema)
+
 async function createUser(data){
 
     const newUser = new User({
@@ -21,3 +22,4 @@ async function createUser(data){
 }
 
 exports.createUser = createUser;
+exports.User = User
