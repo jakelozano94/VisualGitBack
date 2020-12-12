@@ -1,9 +1,10 @@
 const webServerDebugger = require('debug')('app:web-server');
 const mongoDebugger = require('debug')('app:mongo');
+const config = require('./package.json');
 //initialize server
 const express = require('express');
 const app = express()
-app.listen(3000)
+app.listen(8000)
 
 const mongoose = require('mongoose');
 const axios = require('axios');
@@ -62,8 +63,3 @@ mongoose.connect('mongodb://localhost/visualgit')
 
 app.use('/users', userRouter)
 app.use('/signin', authRouter)
-
-
-
-                  
-            
