@@ -3,18 +3,19 @@ const authRouter = express.Router()
 const axios = require('axios');
 const { Octokit } = require('@octokit/core');
 const { createUser } = require('../models/User');
-require('dotenv').config()
+const { clientId, clientSecret } = require('../config.json');
 
 
 
 authRouter.get('/', (req, res) =>{
-    res.json(`https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.CLIENT_ID}`)
+    console.log(clientId)
+    res.redirect(`https://github.com/login/oauth/authorize?scope=repo&client_id=${clientId}`)
 })
     
 authRouter.get('/callback', ({ query: { code } }, res) =>{
     const body = {
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
+        client_id: clientId,
+        client_secret: clientSecret,
         code
     };
     const options = {
