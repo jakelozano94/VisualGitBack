@@ -4,7 +4,6 @@ const axios = require('axios');
 const { Octokit } = require('@octokit/core');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
-let octokit = new Octokit({})
 
 
 
@@ -12,6 +11,11 @@ let octokit = new Octokit({})
 authRouter.get('/', (req, res) =>{
     res.redirect(`https://github.com/login/oauth/authorize?scope=repo&client_id=${clientId}`)
 })
+
+createOctokit = async(token) => {
+    const octokit = new Octokit({ auth: token })
+    return octokit
+}
     
 authRouter.get('/callback', ({ query: { code } }, res) =>{
     const body = {
@@ -37,13 +41,13 @@ axios
         res.status(500).json({err: error.message})
     })
 });
-console.log(octokit)
-const fake = async() => {
-    const response = await octokit.request('GET /user')
-    .then(console.log)
-    .catch(console.log)
+// console.log(octokit)
+// const fake = async() => {
+//     const response = await octokit.request('GET /user')
+//     .then(console.log)
+//     .catch(console.log)
     
-}
+// }
 fake()
 // findOrCreateUser(response.data)
 // res.redirect("http://localhost:3000")
