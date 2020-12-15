@@ -6,8 +6,9 @@ const userDebugger = require('debug')('app:create');
 
 const userSchema = new mongoose.Schema({
     name: String,
-    html_url: String,
-    repos_url: String,
+    username: String,
+    htmlUrl: String,
+    reposUrl: String,
 })
 
 
@@ -25,8 +26,7 @@ const newUser = async (data) => {
     }
 } 
 
-async function findOrCreateUser(data){
-
+async function findOrCreateUser( {name, login, html_url, repos_url} ){
     if (newUser){
         const createdUser = new User({
             name: data.toString()

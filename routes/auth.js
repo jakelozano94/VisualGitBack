@@ -2,7 +2,7 @@ const express = require('express');
 const authRouter = express.Router()
 const axios = require('axios');
 const { Octokit } = require('@octokit/core');
-const { createUser } = require('../models/User');
+const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
 
 
@@ -27,9 +27,8 @@ axios
     .then(async (token) => {
         const octokit = new Octokit({ auth: token })
         const response = await octokit.request('GET /user')
-        .then(console.log)
-            // findOrCreateUser(response.data.name)
-        // res.redirect("http://localhost:3000")
+        findOrCreateUser(response.data)
+        res.redirect("http://localhost:3000")
     })
     .catch((error) =>{
         console.log("whatever")
