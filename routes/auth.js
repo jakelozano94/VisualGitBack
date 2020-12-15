@@ -31,7 +31,6 @@ axios
         res.redirect("http://localhost:3000")
     })
     .catch((error) =>{
-        console.log("whatever")
         res.status(500).json({err: error.message})
     })
 });

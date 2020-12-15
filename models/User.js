@@ -29,7 +29,10 @@ const newUser = async (login) => {
 async function findOrCreateUser( {name, login, html_url, repos_url} ){
     if (newUser(login)){
         const createdUser = new User({
-            name: data.toString()
+            name: name,
+            login: login,
+            html_url: html_url,
+            repos_url: repos_url
         })
         const result = await createdUser.save()
     }else{
