@@ -17,17 +17,17 @@ const User = mongoose.model("User", userSchema)
 
 
 const newUser = async (login) => {
-    if (await User.find({ username: login })){
-        console.log("false")
+    const findAUser = await User.find({ username: login }).exec()
+    if (findAUser.length > 0){
         return false
     }else{
-        console.log("true")
         return true
     }
 } 
 
 async function findOrCreateUser( {name, login, html_url, repos_url} ){
-    if (newUser(login) === true){
+    const isNew = await newUser(login)
+    if (isNew){
         const createdUser = new User({
             name: name,
             username: login,
