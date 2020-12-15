@@ -11,11 +11,6 @@ const { clientId, clientSecret } = require('../config.json');
 authRouter.get('/', (req, res) =>{
     res.redirect(`https://github.com/login/oauth/authorize?scope=repo&client_id=${clientId}`)
 })
-
-createOctokit = async(token) => {
-    const octokit = new Octokit({ auth: token })
-    return octokit
-}
     
 authRouter.get('/callback', ({ query: { code } }, res) =>{
     const body = {
@@ -31,9 +26,8 @@ axios
     .post('https://github.com/login/oauth/access_token', body, options)
     .then((_res) =>((_res.data.access_token)))
     .then(async (token) => {
-        globalToken = token
-        octokit = new Octokit({ auth: token })
-        // const response = await octokit.request('GET /user')
+        let octokit = new Octokit({ auth: token })
+        const response = await octokit.request('GET /user')
         // findOrCreateUser(response.data)
         // res.redirect("http://localhost:3000")
     })
