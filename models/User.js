@@ -16,8 +16,8 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema)
 
 
-const newUser = async (data) => {
-    if (await User.find({ name: data })){
+const newUser = async (login) => {
+    if (await User.find({ username: login })){
         console.log("true")
         return false
     }else{
@@ -27,7 +27,7 @@ const newUser = async (data) => {
 } 
 
 async function findOrCreateUser( {name, login, html_url, repos_url} ){
-    if (newUser){
+    if (newUser(login)){
         const createdUser = new User({
             name: data.toString()
         })
