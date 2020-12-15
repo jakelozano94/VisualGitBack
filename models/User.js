@@ -18,25 +18,26 @@ const User = mongoose.model("User", userSchema)
 
 const newUser = async (login) => {
     if (await User.find({ username: login })){
-        console.log("true")
+        console.log("false")
         return false
     }else{
-        console.log("false")
+        console.log("true")
         return true
     }
 } 
 
 async function findOrCreateUser( {name, login, html_url, repos_url} ){
-    if (newUser(login)){
+    if (newUser(login) === true){
         const createdUser = new User({
             name: name,
             username: login,
-            html_url: html_url,
-            repos_url: repos_url
+            htmlUrl: html_url,
+            reposUrl: repos_url
         })
+        console.log("new User")
         const result = await createdUser.save()
     }else{
-        return userInfo
+        console.log("old User")
     }
 
     // result()
