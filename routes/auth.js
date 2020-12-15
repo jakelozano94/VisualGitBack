@@ -25,11 +25,11 @@ axios
     .post('https://github.com/login/oauth/access_token', body, options)
     .then((_res) =>((_res.data.access_token)))
     .then(async (token) => {
-        console.log("hello")
         const octokit = new Octokit({ auth: token })
         const response = await octokit.request('GET /user')
-        createUser(response.data.name)
-        res.redirect("http://localhost:3000")
+        .then(console.log)
+            // findOrCreateUser(response.data.name)
+        // res.redirect("http://localhost:3000")
     })
     .catch((error) =>{
         console.log("whatever")

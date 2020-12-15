@@ -5,21 +5,41 @@ const userDebugger = require('debug')('app:create');
 //model Schema
 
 const userSchema = new mongoose.Schema({
-    name: String
+    name: String,
+    html_url: String,
+    repos_url: String,
 })
 
 
 
 const User = mongoose.model("User", userSchema)
 
-async function createUser(data){
 
-    const newUser = new User({
-        name: data.toString()
-    })
-    const result = await newUser.save()
+const newUser = async (data) => {
+    if (await User.find({ name: data })){
+        console.log("true")
+        return false
+    }else{
+        console.log("false")
+        return true
+    }
+} 
+
+async function findOrCreateUser(data){
+
+    if (newUser){
+        const createdUser = new User({
+            name: data.toString()
+        })
+        const result = await createdUser.save()
+    }else{
+        return userInfo
+    }
+
     // result()
 }
 
-exports.createUser = createUser;
+newUser
+
+exports.findOrCreateUser = findOrCreateUser;
 exports.User = User
