@@ -40,7 +40,6 @@ async function findOrCreateUser( {name, login, html_url, repos_url} ){
         console.log("old User")
     }
 
-    // result()
 }
 
 newUser

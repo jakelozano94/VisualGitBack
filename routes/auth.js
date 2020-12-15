@@ -4,6 +4,8 @@ const axios = require('axios');
 const { Octokit } = require('@octokit/core');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
+let octokit = new Octokit({})
+
 
 
 
@@ -25,14 +27,25 @@ axios
     .post('https://github.com/login/oauth/access_token', body, options)
     .then((_res) =>((_res.data.access_token)))
     .then(async (token) => {
-        const octokit = new Octokit({ auth: token })
-        const response = await octokit.request('GET /user')
-        findOrCreateUser(response.data)
-        res.redirect("http://localhost:3000")
+        globalToken = token
+        octokit = new Octokit({ auth: token })
+        // const response = await octokit.request('GET /user')
+        // findOrCreateUser(response.data)
+        // res.redirect("http://localhost:3000")
     })
     .catch((error) =>{
         res.status(500).json({err: error.message})
     })
 });
+console.log(octokit)
+const fake = async() => {
+    const response = await octokit.request('GET /user')
+    .then(console.log)
+    .catch(console.log)
+    
+}
+fake()
+// findOrCreateUser(response.data)
+// res.redirect("http://localhost:3000")
 
 module.exports = authRouter
