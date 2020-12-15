@@ -30,7 +30,7 @@ async function findOrCreateUser( {name, login, html_url, repos_url} ){
     if (newUser(login)){
         const createdUser = new User({
             name: name,
-            login: login,
+            username: login,
             html_url: html_url,
             repos_url: repos_url
         })
