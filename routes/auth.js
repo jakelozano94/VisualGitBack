@@ -9,7 +9,7 @@ const { clientId, clientSecret } = require('../config.json');
 
 
 // const octokit = new Octokit({
-//     auth: process.env.ACCESS_TOKEN,
+//     authx: process.env.ACCESS_TOKEN,
 //     userAgent: "visualgit 0.1",
 // })
 
@@ -92,4 +92,5 @@ authRouter.get('/callback', async (req, res) =>{
 // findOrCreateUser(response.data)
 // res.redirect("http://localhost:3000")
 
-module.exports = authRouter
+module.exports = authRouter;
+module.exports.createOctokit = createOctokit;

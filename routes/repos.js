@@ -4,14 +4,16 @@ const axios = require('axios');
 const { Octokit } = require('@octokit/rest');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
-// const { createOctokit } = require('./auth');
+const { createOctokit } = require('./auth');
 
 
 repoRouter.get('/list', async ( req, res) =>{
-    res.json(req.session)
-    // const driver = await createOctokit(session.token)
-    // const listRepos = await driver.repos.listForUser({username: session.username})
-    // res.send(listRepos)
+    // res.json(req.session)
+    const { session } = req
+    console.log(createOctokit)
+    const driver = await createOctokit(session.token)
+    const listRepos = await driver.repos.listForUser({username: session.username})
+    res.json(listRepos)
 })
 
 repoRouter.get('/example', async (req, res) => {
