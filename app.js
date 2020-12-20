@@ -1,6 +1,7 @@
 const webServerDebugger = require('debug')('app:web-server');
 const mongoDebugger = require('debug')('app:mongo');
 const config = require('./package.json');
+const { cookieSecret } = require('./config.json');
 //initialize server
 const express = require('express');
 const app = express()
@@ -8,6 +9,7 @@ app.listen(8000)
 
 const mongoose = require('mongoose');
 const axios = require('axios');
+
 //routes
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth')
@@ -25,6 +27,16 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 //CORS setup
+
+//Adds cookieSession to server
+const cookieSession = require('cookie-session');
+
+app.use(
+    cookieSession({
+        secret: cookieSecret 
+    })
+)
+
 
 //Connect to Mongo
 mongoose.connect('mongodb://localhost/visualgit')

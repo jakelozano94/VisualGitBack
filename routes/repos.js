@@ -4,15 +4,14 @@ const axios = require('axios');
 const { Octokit } = require('@octokit/rest');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
+// const { createOctokit } = require('./auth');
 
-const octokit = new Octokit({
-    auth: process.env.ACCESS_TOKEN,
-    userAgent: "visualgit 0.1",
-})
 
-repoRouter.get('/list', async (req, res) =>{
-    const listRepos = await octokit.repos.listForUser({username: "jakelozano94"})
-    res.send(listRepos)
+repoRouter.get('/list', async ( req, res) =>{
+    res.json(req.session)
+    // const driver = await createOctokit(session.token)
+    // const listRepos = await driver.repos.listForUser({username: session.username})
+    // res.send(listRepos)
 })
 
 repoRouter.get('/example', async (req, res) => {
