@@ -1,11 +1,19 @@
 const express = require('express');
 const authRouter = express.Router()
 const axios = require('axios');
-const { Octokit } = require('@octokit/core');
+const { Octokit } = require('@octokit/rest');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
 
+const octokit = new Octokit({
+    auth: process.env.ACCESS_TOKEN,
+    userAgent: "visualgit 0.1",
+})
 
+octokit.repos.get({
+    "jakelozano94",
+    "VisualGitBack"
+})
 
 
 authRouter.get('/', (req, res) =>{
