@@ -6,7 +6,7 @@ const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
 const { createOctokit } = require('./auth');
 
-// there is a code smell of repearing destructuring and creating driver, possible abstraction to helper function
+// there is a code smell of reappearing destructuring and creating driver, possible abstraction to helper function
 
 repoRouter.get('/list', async ( req, res) =>{
     // res.json(req.session)
