@@ -6,30 +6,34 @@ const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
 const { createOctokit } = require('./auth');
 
+// there is a code smell of repearing destructuring and creating driver, possible abstraction to helper function
 
 repoRouter.get('/list', async ( req, res) =>{
     // res.json(req.session)
     const { session } = req
-    console.log(createOctokit)
     const driver = await createOctokit(session.token)
     const listRepos = await driver.repos.listForUser({username: session.username})
     res.json(listRepos)
 })
 
 repoRouter.get('/example', async (req, res) => {
-    const exampleRepo = await octokit.repos.get({
+    const { session } = req
+    const driver = await createOctokit(session.token)
+    const exampleRepo = await driver.repos.get({
         owner: "jakelozano94",
         repo: "VisualGitBack"
     })
-    res.send(exampleRepo)
+    res.json(exampleRepo)
 })
 
 repoRouter.get('/commits', async (req, res) => {
-    const repoCommits = await octokit.repos.listCommits({
+    const { session } = req
+    const driver = await createOctokit(session.token)
+    const repoCommits = await driver.repos.listCommits({
         owner: "jakelozano94",
         repo: "VisualGitBack"
     })
-    res.send(repoCommits)
+    res.json(repoCommits)
 })
 
 
