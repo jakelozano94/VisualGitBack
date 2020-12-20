@@ -23,6 +23,14 @@ repoRouter.get('/example', async (req, res) => {
     res.send(exampleRepo)
 })
 
+repoRouter.get('/commits', async (req, res) => {
+    const repoCommits = await octokit.repos.listCommits({
+        owner: "jakelozano94",
+        repo: "VisualGitBack"
+    })
+    res.send(repoCommits)
+})
+
 
 
 module.exports = repoRouter
