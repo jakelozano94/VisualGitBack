@@ -11,6 +11,7 @@ const axios = require('axios');
 //routes
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth')
+const repoRouter = require('./routes/repos')
 
 const { Octokit } = require('@octokit/core');
 const { createUser } = require('./models/User');
@@ -40,3 +41,4 @@ mongoose.connect('mongodb://localhost/visualgit')
 
 app.use('/users', userRouter)
 app.use('/signin', authRouter)
+app.use('/repos', repoRouter)

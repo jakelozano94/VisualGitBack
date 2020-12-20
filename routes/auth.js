@@ -10,10 +10,9 @@ const octokit = new Octokit({
     userAgent: "visualgit 0.1",
 })
 
-octokit.repos.get({
-    "jakelozano94",
-    "VisualGitBack"
-})
+// const listRepos = await octokit.repos.listForUser({
+//     username: "jakelozano94"
+// })
 
 
 authRouter.get('/', (req, res) =>{
@@ -28,22 +27,22 @@ authRouter.get('/callback', ({ query: { code } }, res) =>{
     };
     const options = {
         headers: {accept: 'application/json'}
-};
+    };
     
-axios
-    .post('https://github.com/login/oauth/access_token', body, options)
-    .then((_res) =>((_res.data.access_token)))
-    .then(async (token) => {
-        let octokit = new Octokit({ auth: token })
-        const response = await octokit.request('GET /user')
-        findOrCreateUser(response.data)
-        process.env.ACCESS_TOKEN = token
-        console.log("hello", process.env.ACCESS_TOKEN)
-        res.redirect("http://localhost:3000")
-    })
-    .catch((error) =>{
-        res.status(500).json({err: error.message})
-    })
+    axios
+        .post('https://github.com/login/oauth/access_token', body, options)
+        .then((_res) =>((_res.data.access_token)))
+        .then(async (token) => {
+            let octokit = new Octokit({ auth: token })
+            const response = await octokit.request('GET /user')
+            findOrCreateUser(response.data)
+            process.env.ACCESS_TOKEN = token
+            // console.log("hello", process.env.ACCESS_TOKEN)
+            res.redirect("http://localhost:3000")
+        })
+        .catch((error) =>{
+            res.status(500).json({err: error.message})
+        })
 });
 
 // findOrCreateUser(response.data)
