@@ -11,9 +11,16 @@ const octokit = new Octokit({
 })
 
 repoRouter.get('/list', async (req, res) =>{
-    console.log("hello")
     const listRepos = await octokit.repos.listForUser({username: "jakelozano94"})
-    console.log(listRepos)
+    res.send(listRepos)
+})
+
+repoRouter.get('/example', async (req, res) => {
+    const exampleRepo = await octokit.repos.get({
+        owner: "jakelozano94",
+        repo: "VisualGitBack"
+    })
+    res.send(exampleRepo)
 })
 
 
