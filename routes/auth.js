@@ -28,21 +28,16 @@ axios
     .then(async (token) => {
         let octokit = new Octokit({ auth: token })
         const response = await octokit.request('GET /user')
-        // findOrCreateUser(response.data)
-        // res.redirect("http://localhost:3000")
+        findOrCreateUser(response.data)
+        process.env.ACCESS_TOKEN = token
+        console.log("hello", process.env.ACCESS_TOKEN)
+        res.redirect("http://localhost:3000")
     })
     .catch((error) =>{
         res.status(500).json({err: error.message})
     })
 });
-// console.log(octokit)
-// const fake = async() => {
-//     const response = await octokit.request('GET /user')
-//     .then(console.log)
-//     .catch(console.log)
-    
-// }
-fake()
+
 // findOrCreateUser(response.data)
 // res.redirect("http://localhost:3000")
 
