@@ -13,6 +13,7 @@
     "@octokit/core": "^3.2.2",
     "@octokit/rest": "^18.0.12",
     "axios": "^0.21.0",
+    "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
@@ -20,6 +21,7 @@
     "express": "^4.17.1",
     "github-api": "^3.3.0",
     "mongoose": "^5.11.1",
+    "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
     "ws": "^7.4.0"

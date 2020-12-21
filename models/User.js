@@ -20,7 +20,8 @@ const newUser = async (login) => {
     const findAUser = await User.find({ username: login }).exec()
     if (findAUser.length > 0){
         return false
-    }else{
+    }
+    else {
         return true
     }
 } 
@@ -36,7 +37,8 @@ async function findOrCreateUser( {name, login, html_url, repos_url} ){
         })
         console.log("new User")
         const result = await createdUser.save()
-    }else{
+    }
+    else {
         console.log("old User")
     }
 
