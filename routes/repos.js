@@ -36,6 +36,16 @@ repoRouter.get('/commits', async (req, res) => {
     res.json(repoCommits)
 })
 
+repoReouter.get('/branches', async (req, res) => {
+    const {session} = req
+    const driver = await createOctokit(session.token)
+    const repoBranches = await driver.repos.listBranches({
+        owner: session.username,
+        repo: "VisualGitBack"
+    })
+    res.json(repoBranches)
+})
+
 
 
 module.exports = repoRouter
