@@ -57,8 +57,9 @@ authRouter.get('/callback', async (req, res) =>{
         const { data } = response
         req.session.username = data.login
         req.session.token = token
-        // res.json(req.session)
-        res.redirect(`http://localhost:3000`)
+        res.json(req.session)
+        // res.redirect(`http://localhost:3000`)
+        console.log(req.session.username, req.session.token)
     }
     else {
         console.log('The error from making session cookies.')
