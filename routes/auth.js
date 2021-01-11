@@ -1,11 +1,24 @@
 const express = require('express');
 const authRouter = express.Router();
 const fetch = require('node-fetch');
+const
 const { Octokit } = require('@octokit/rest');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
 
 
+
+passport.use(new GitHubStrategy({
+    clientID: clientId,
+    clientSecret: clientSecret,
+    callbackURL: "http://localhost:8000/signin/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 
 // const octokit = new Octokit({
@@ -57,8 +70,8 @@ authRouter.get('/callback', async (req, res) =>{
         const { data } = response
         req.session.username = data.login
         req.session.token = token
-        res.json(req.session)
-        // res.redirect(`http://localhost:3000`)
+        // res.json(req.session)
+        res.redirect(`http://localhost:3000`)
         console.log(req.session.username, req.session.token)
     }
     else {

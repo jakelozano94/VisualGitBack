@@ -11,12 +11,12 @@ const { createOctokit } = require('./auth');
 repoRouter.get('/list', async ( req, res ) =>{
     // res.json(req.session)
     const { session } = req
-    // console.log(session)
-    console.log(req.session.username)
+    console.log(session)
     const driver = await createOctokit(session.token)
-    .catch(console.log("driver"))
+    .catch(console.log)
     const listRepos = await driver.repos.listForUser({username: session.username})
-    .catch(console.log("repolist"))
+    // .then(res.json(listRepos))
+    .catch(err => console.log(err))
     res.json(listRepos)
 })
 
