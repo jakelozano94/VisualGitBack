@@ -41,6 +41,31 @@ app.use(passport.session())
 //     })
 // )
 
+passport.use(new GithubStrategy({
+    clientID: 'your app client id',
+    clientSecret: 'your app client secret',
+    callbackURL: 'http://localhost:3000/auth/callback'
+  }, function(accessToken, refreshToken, profile, done){
+    done(null, {
+      accessToken: accessToken,
+      profile: profile
+    });
+  }));
+
+  passport.serializeUser(function(user, done) {
+    // for the time being tou can serialize the user 
+    // object {accessToken: accessToken, profile: profile }
+    // In the real app you might be storing on the id like user.profile.id 
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    // If you are storing the whole user on session we can just pass to the done method, 
+    // But if you are storing the user id you need to query your db and get the user 
+    //object and pass to done() 
+    done(null, user);
+  });
+
 
 //Connect to Mongo
 mongoose.connect('mongodb://localhost/visualgit')
