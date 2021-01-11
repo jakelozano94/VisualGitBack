@@ -53,6 +53,18 @@ repoRouter.get('/branches', async (req, res) => {
     res.json(repoBranches)
 })
 
+repoRouter.get('/contributors', async (req, res) => {
+    // res.json(req.session)
+    const { session } = req
+    console.log(session)
+    const driver = await createOctokit(session.token)
+    .catch(console.log)
+    const listRepos = await driver.repos.listCotributors({username: session.username})
+    // .then(res.json(listRepos))
+    .catch(err => console.log(err))
+    res.json(listRepos)
+})
+
 
 
 module.exports = repoRouter
