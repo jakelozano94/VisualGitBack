@@ -1,10 +1,10 @@
 const express = require('express');
 const repoRouter = express.Router();
-const axios = require('axios');
-const { Octokit } = require('@octokit/rest');
+// const axios = require('axios');
+// const { Octokit } = require('@octokit/rest');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
-const { createOctokit } = require('./auth');
+// const { createOctokit } = require('./auth');
 
 // there is a code smell of reappearing destructuring and creating driver, possible abstraction to helper function
 

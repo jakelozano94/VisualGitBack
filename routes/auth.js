@@ -3,7 +3,7 @@ const authRouter = express.Router();
 const fetch = require('node-fetch');
 const passport = require('passport')
 const GitHubStrategy = require('passport-github2').Strategy
-const { Octokit } = require('@octokit/rest');
+// const { Octokit } = require('@octokit/rest');
 const { findOrCreateUser } = require('../models/User');
 const { clientId, clientSecret } = require('../config.json');
 

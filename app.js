@@ -1,7 +1,7 @@
 const webServerDebugger = require('debug')('app:web-server');
 const mongoDebugger = require('debug')('app:mongo');
 const config = require('./package.json');
-const { cookieSecret } = require('./config.json');
+// const { cookieSecret } = require('./config.json');
 //initialize server
 const express = require('express');
 const app = express()
