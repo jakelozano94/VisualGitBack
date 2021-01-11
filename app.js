@@ -31,11 +31,15 @@ app.use(cors(corsOptions))
 //Adds cookieSession to server
 const cookieSession = require('cookie-session');
 
-app.use(
-    cookieSession({
-        secret: cookieSecret 
-    })
-)
+app.use(express.cookieParser())
+app.user(express.session({secret: 'abc'}))
+app.use(passport.initialize())
+app.use(passport.session())
+// app.use(
+//     cookieSession({
+//         secret: cookieSecret 
+//     })
+// )
 
 
 //Connect to Mongo
