@@ -90,30 +90,8 @@ authRouter.get('/callback', async (req, res) =>{
         console.log('The error from making session cookies.')
     }
     
-    // console.log(res)
-    // const body = {
-    //     client_id: clientId,
-    //     client_secret: clientSecret,
-    //     code
-    // };
-    // const options = {
-    //     headers: {accept: 'application/json'}
-    // };
-    
-    // axios
-    //     .post('https://github.com/login/oauth/access_token', body, options)
-    //     .then((_res) =>((_res.data.access_token)))
-    //     .then(async (token) => {
-    //         let octokit = new Octokit({ auth: token })
-    //         const response = await octokit.request('GET /user')
-    //         findOrCreateUser(response.data, token)
-    //         process.env.ACCESS_TOKEN = token
-    //         // console.log("hello", process.env.ACCESS_TOKEN)
-    //         res.redirect("http://localhost:3000")
-    //     })
-    //     .catch((error) =>{
-    //         res.status(500).json({err: error.message})
-    //     })
+
+   
 });
 
 // findOrCreateUser(response.data)
