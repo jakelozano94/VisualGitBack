@@ -9,28 +9,28 @@ const { clientId, clientSecret } = require('../config.json');
 
 
 
-passport.use(new GitHubStrategy({
-    clientID: clientId,
-    clientSecret: clientSecret,
-    callbackURL: "http://localhost:8000/signin/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+// passport.use(new GitHubStrategy({
+//     clientID: clientId,
+//     clientSecret: clientSecret,
+//     callbackURL: "http://localhost:8000/signin/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
+//       return done(err, user);
+//     });
+//   }
+// ));
 
-exports.callback = function(req, res){
-    // In the real application you might need to check 
-    // whether the user exits and if exists redirect 
-    // or if not you many need to create user.
-    res.send('Login success');
-  };
+// exports.callback = function(req, res){
+//     // In the real application you might need to check 
+//     // whether the user exits and if exists redirect 
+//     // or if not you many need to create user.
+//     res.send('Login success');
+//   };
   
-  exports.error = function(req, res){
-    res.send('Login Failed');
-  };
+//   exports.error = function(req, res){
+//     res.send('Login Failed');
+//   };
 
 
 // const octokit = new Octokit({
